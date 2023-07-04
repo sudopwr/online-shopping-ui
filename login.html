@@ -64,6 +64,7 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./utils.js"></script>
 
     <script>
         function handleCredentialResponse(response) {
@@ -92,7 +93,7 @@
         async function loginUser(jwt) {
             try {
                 const response = await axios.post('http://localhost:5000/login', { jwt });
-                console.log(response);
+                setValueInLocalStorage(USER_TOKEN_KEY, response.data.token)
             } catch (error) {
                 console.error(error);
             }
