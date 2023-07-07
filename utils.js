@@ -11,3 +11,7 @@ const getValueInLocalStorage = (key) => {
 const clearValueInLocalStorage = (key) => {
     localStorage.setItem(key, '')
 }
+
+const hideNavItems = () => {
+    document.getElementById("login-nav-item").style.display = 'none'
+}
