@@ -1,0 +1,15 @@
+body {
+    font-family: 'Abel', sans-serif;
+}
+
+.align-item-center {
+    align-items: center;
+}
+
+.text-red-800-color {
+    color: #58151c;
+}
+
+.border-red-800-color {
+    border-color: #58151c;
+}
