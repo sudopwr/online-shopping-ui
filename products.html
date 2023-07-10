@@ -41,7 +41,8 @@
                     </li>
                     <li class="nav-item" id="user-details-nav-item">
                         <a class="nav-link active" href="javascript:;">
-                            <img id="user-image" class="img-thumbnail rounded-circle w-25 border-red-800-color" alt="img">
+                            <img id="user-image" class="img-thumbnail rounded-circle w-25 border-red-800-color"
+                                alt="img">
                             <span id="user-name" class="text-red-800-color"></span>
                         </a>
                     </li>
@@ -53,9 +54,29 @@
     <div class="container-md w-25 mt-5">
         <div class="row">
             <div class="d-flex justify-content-center">
-                <p>Add Products</p>
+                <form onsubmit="addProduct(event)">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" required class="form-control" id="name" placeholder="pencil">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">price</label>
+                        <input type="number" name="price" required class="form-control" id="price" placeholder="100.00">
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" name="quantity" required class="form-control" id="quantity"
+                            placeholder="10">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            
         </div>
     </div>
 
@@ -67,23 +88,13 @@
     <script src="./utils.js" defer></script>
 
     <script>
-        function handleCredentialResponse(response) {
-            const responsePayload = decodeJwtResponse(response.credential);
-            const user = {
-                email: responsePayload.email,
-                name: responsePayload.name,
-                image: responsePayload.picture
-            }
-            console.log(user)
-            setValueInLocalStorage(LOGGED_IN_USER_KEY, JSON.stringify(user))
-            loginUser(response.credential)
-        }
-
-        async function loginUser(jwt) {
+        async function addProduct(e) {
+            e.preventDefault()
             try {
-                const response = await axios.post('http://localhost:5000/login', { jwt });
-                setValueInLocalStorage(USER_TOKEN_KEY, response.data.token)
-                window.location = "index.html"
+                const formData = new FormData(e.target);
+                const formProps = Object.fromEntries(formData);
+                const response = await axios.post('http://localhost:5000/products', formProps);
+                window.location = "/index.html"
             } catch (error) {
                 console.error(error);
             }

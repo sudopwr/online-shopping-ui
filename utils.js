@@ -42,7 +42,7 @@ const onPageLoadNavSettings = () => {
 
 const getLogout = () => {
     clearValueInLocalStorage(USER_TOKEN_KEY)
-    window.location = "/"
+    window.location = "/login.html"
 }
 
 const decodeJwtResponse = (token) => {
