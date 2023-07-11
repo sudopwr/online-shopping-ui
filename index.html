@@ -51,92 +51,9 @@
         </div>
     </nav>
     <div class="container-lg mt-5">
-        <div class="row text-gray-700 g-4">
+        <div class="row text-gray-700 g-4" id="product-list">
             <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card text-center">
-                    <img src="./img/pencil.jpg" class="card-img-top" alt="pencil">
-                    <div class="card-body">
-                        <h5 class="card-title">Pencil</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the.</p>
-                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card text-center">
-                    <img src="./img/notebook.jpg" class="card-img-top" alt="pencil">
-                    <div class="card-body">
-                        <h5 class="card-title">Pencil</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the.</p>
-                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card text-center">
-                    <img src="./img/colorbox.jpg" class="card-img-top" alt="pencil">
-                    <div class="card-body">
-                        <h5 class="card-title">Pencil</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the.</p>
-                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card text-center">
-                    <img src="./img/pen2.jpg" class="card-img-top" alt="pencil">
-                    <div class="card-body">
-                        <h5 class="card-title">Pencil</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the.</p>
-                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card text-center">
-                    <img src="./img/pen1.jpg" class="card-img-top" alt="pencil">
-                    <div class="card-body">
-                        <h5 class="card-title">Pencil</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the.</p>
-                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card text-center">
-                    <img src="./img/drawingbook.jpg" class="card-img-top" alt="pencil">
-                    <div class="card-body">
-                        <h5 class="card-title">Pencil</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the.</p>
-                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -155,7 +72,26 @@
         async function getProduct() {
             try {
                 const response = await axios.get('http://localhost:5000/products');
-                console.log(response)
+                const { data: products } = response;
+                const productListEle = document.getElementById("product-list")
+                products.forEach(product => {
+                    const div = document.createElement("div")
+                    div.setAttribute("class", "col-sm-12 col-md-6 col-lg-3")
+                    div.innerHTML = `
+                    <div class="card text-center">
+                      <img src="./img/pencil.jpg" class="card-img-top" alt="pencil">
+                      <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">${product.description}</p>
+                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> ${product.price} /-</h5>
+                      </div>
+                      <div class="card-body">
+                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                      </div>
+                    </div>
+                    `
+                    productListEle.appendChild(div)
+                });
             } catch (error) {
                 console.error(error);
             }
