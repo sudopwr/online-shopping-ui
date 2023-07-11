@@ -41,7 +41,8 @@
                     </li>
                     <li class="nav-item" id="user-details-nav-item">
                         <a class="nav-link" href="javascript:;">
-                            <img id="user-image" class="img-thumbnail rounded-circle w-25 border-red-800-color" alt="img">
+                            <img id="user-image" class="img-thumbnail rounded-circle w-25 border-red-800-color"
+                                alt="img">
                             <span id="user-name" class="text-red-800-color"></span>
                         </a>
                     </li>
@@ -49,7 +50,96 @@
             </div>
         </div>
     </nav>
-
+    <div class="container-lg mt-5">
+        <div class="row text-gray-700 g-4">
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card text-center">
+                    <img src="./img/pencil.jpg" class="card-img-top" alt="pencil">
+                    <div class="card-body">
+                        <h5 class="card-title">Pencil</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the.</p>
+                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card text-center">
+                    <img src="./img/notebook.jpg" class="card-img-top" alt="pencil">
+                    <div class="card-body">
+                        <h5 class="card-title">Pencil</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the.</p>
+                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card text-center">
+                    <img src="./img/colorbox.jpg" class="card-img-top" alt="pencil">
+                    <div class="card-body">
+                        <h5 class="card-title">Pencil</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                            of
+                            the.</p>
+                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card text-center">
+                    <img src="./img/pen2.jpg" class="card-img-top" alt="pencil">
+                    <div class="card-body">
+                        <h5 class="card-title">Pencil</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the.</p>
+                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card text-center">
+                    <img src="./img/pen1.jpg" class="card-img-top" alt="pencil">
+                    <div class="card-body">
+                        <h5 class="card-title">Pencil</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the.</p>
+                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card text-center">
+                    <img src="./img/drawingbook.jpg" class="card-img-top" alt="pencil">
+                    <div class="card-body">
+                        <h5 class="card-title">Pencil</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                            of
+                            the.</p>
+                        <h5 class="card-title"><i class="bi bi-currency-rupee"></i> 10 /-</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
@@ -60,7 +150,17 @@
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./utils.js" defer></script>
-
+    <script>
+        getProduct()
+        async function getProduct() {
+            try {
+                const response = await axios.get('http://localhost:5000/products');
+                console.log(response)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
 </body>
 
 </html>
