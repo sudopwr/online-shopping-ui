@@ -93,7 +93,11 @@
             try {
                 const formData = new FormData(e.target);
                 const formProps = Object.fromEntries(formData);
-                const response = await axios.post('http://localhost:5000/products', formProps);
+                const response = await axios.post('http://localhost:5000/products', formProps, {
+                    headers: {
+                        Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
+                    }
+                });
                 window.location = "/index.html"
             } catch (error) {
                 console.error(error);
