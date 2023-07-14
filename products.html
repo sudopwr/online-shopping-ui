@@ -72,6 +72,12 @@
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" name="description" id="description" rows="3"></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="productImage" class="form-label">Product image</label>
+                        <input class="form-control form-control-sm" onchange="changeImage(this);" id="productImage"
+                            type="file">
+                        <img id="demoImage" src="img/demoimage.png" class="w-25 mt-2" alt="your image" />
+                    </div>
                     <div class="col-12 d-flex justify-content-center">
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
@@ -88,12 +94,13 @@
     <script src="./utils.js" defer></script>
 
     <script>
+        let imageBase64Code = ''
         async function addProduct(e) {
             e.preventDefault()
             try {
                 const formData = new FormData(e.target);
                 const formProps = Object.fromEntries(formData);
-                const response = await axios.post('http://localhost:5000/products', formProps, {
+                const response = await axios.post('http://localhost:5000/products', { ...formProps, image: imageBase64Code }, {
                     headers: {
                         Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
                     }
@@ -101,6 +108,20 @@
                 window.location = "/index.html"
             } catch (error) {
                 console.error(error);
+            }
+        }
+
+        function changeImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const imageCode = e.target.result
+                    document.getElementById("demoImage").src = e.target.result
+                    imageBase64Code = imageCode
+                };
+
+                reader.readAsDataURL(input.files[0]);
             }
         }
     </script>
