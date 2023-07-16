@@ -4,6 +4,7 @@ const LOGIN_NAV_ITEM_KEY = 'login-nav-item'
 const PRODUCTS_NAV_ITEM_KEY = 'products-nav-item'
 const LOGOUT_NAV_ITEM_KEY = 'logout-nav-item'
 const USER_DETAILS_NAV_ITEM_KEY = 'user-details-nav-item'
+const USER_ROLE = 'role'
 
 const setValueInLocalStorage = (key, value) => {
     localStorage.setItem(key, value)
@@ -26,7 +27,11 @@ const setDisplayProperty = (id, value) => {
 const onPageLoadNavSettings = () => {
     if (getValueFromLocalStorage(USER_TOKEN_KEY)) {
         setDisplayProperty(LOGIN_NAV_ITEM_KEY, 'none')
-        setDisplayProperty(PRODUCTS_NAV_ITEM_KEY, 'block')
+        if (getValueFromLocalStorage(USER_ROLE) === "admin") {
+            setDisplayProperty(PRODUCTS_NAV_ITEM_KEY, 'block')
+        } else {
+            setDisplayProperty(PRODUCTS_NAV_ITEM_KEY, 'none')
+        }
         setDisplayProperty(LOGOUT_NAV_ITEM_KEY, 'block')
         setDisplayProperty(USER_DETAILS_NAV_ITEM_KEY, 'block')
         const user = JSON.parse(getValueFromLocalStorage(LOGGED_IN_USER_KEY))
@@ -42,6 +47,7 @@ const onPageLoadNavSettings = () => {
 
 const getLogout = () => {
     clearValueInLocalStorage(USER_TOKEN_KEY)
+    clearValueInLocalStorage(USER_ROLE)
     window.location = "/login.html"
 }
 

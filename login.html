@@ -82,15 +82,16 @@
                 name: responsePayload.name,
                 image: responsePayload.picture
             }
-            console.log(user)
             setValueInLocalStorage(LOGGED_IN_USER_KEY, JSON.stringify(user))
             loginUser(response.credential)
         }
 
         async function loginUser(jwt) {
             try {
-                const response = await axios.post('http://localhost:5000/login', { jwt });
-                setValueInLocalStorage(USER_TOKEN_KEY, response.data.token)
+                const response = await axios.post('http://localhost:5000/login', { jwt })
+                const token = response.data.token
+                setValueInLocalStorage(USER_TOKEN_KEY, token)
+                setValueInLocalStorage(USER_ROLE, decodeJwtResponse(token).role)
                 window.location = "index.html"
             } catch (error) {
                 console.error(error);
