@@ -61,5 +61,9 @@ const decodeJwtResponse = (token) => {
     return JSON.parse(jsonPayload);
 }
 
+const getQueryStringParam = (key) => {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get(key)
+}
 
 onPageLoadNavSettings()

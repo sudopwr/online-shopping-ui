@@ -61,9 +61,20 @@
                     <h5 class="card-title mt-3" id="p-name">${product.name}</h5>
                     <p class="card-text" id="p-description">${product.description}</p>
                     <h5 class="card-title" id="p-price">${product.price}</h5>
+                    <div class="d-flex justify-content-center">
+                        <select id="quantity" class="form-select form-select-lg mb-3 w-25"
+                            aria-label=".form-select-lg example">
+                            <option selected>Quantity</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</button>
+                    <button class="btn btn-primary" onclick="placeOrder()"><i class="bi bi-cart-plus"></i> Buy</button>
                 </div>
             </div>
         </div>
@@ -79,12 +90,13 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./utils.js" defer></script>
     <script>
-        getProduct()
+        setTimeout(() => {
+            getProduct()
+        }, 500)
 
         async function getProduct() {
             try {
-                const urlParams = new URLSearchParams(window.location.search)
-                const product_id = urlParams.get('id')
+                const product_id = getQueryStringParam("id")
                 const response = await axios.get(`http://localhost:5000/products/${product_id}`)
                 const { data: product } = response
                 document.getElementById("p-image").src = product.image
@@ -93,6 +105,23 @@
                 document.getElementById("p-price").innerHTML = `<i class="bi bi-currency-rupee"></i> ${product.price} /-`
             } catch (error) {
                 console.error(error)
+            }
+        }
+
+        async function placeOrder() {
+            try {
+                const payload = {
+                    product_id: getQueryStringParam("id"),
+                    quantity: document.getElementById("quantity").value 
+                }
+                const response = await axios.post('http://localhost:5000/orders', payload, {
+                    headers: {
+                        Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
+                    }
+                })
+                window.location = "/index.html"
+            } catch (error) {
+                console.error(error);
             }
         }
     </script>
