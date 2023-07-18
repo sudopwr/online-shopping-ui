@@ -108,6 +108,7 @@
                         Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
                     }
                 });
+                alert('Product has been added successfully!')
                 window.location = "/index.html"
             } catch (error) {
                 console.error(error);
