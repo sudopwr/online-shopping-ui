@@ -3,6 +3,7 @@ const LOGGED_IN_USER_KEY = 'LOGGED_IN_USER'
 const LOGIN_NAV_ITEM_KEY = 'login-nav-item'
 const PRODUCTS_NAV_ITEM_KEY = 'products-nav-item'
 const LOGOUT_NAV_ITEM_KEY = 'logout-nav-item'
+const ORDERS_NAV_ITEM_KEY = 'orders-nav-item'
 const USER_DETAILS_NAV_ITEM_KEY = 'user-details-nav-item'
 const USER_ROLE = 'role'
 
@@ -33,6 +34,7 @@ const onPageLoadNavSettings = () => {
             setDisplayProperty(PRODUCTS_NAV_ITEM_KEY, 'none')
         }
         setDisplayProperty(LOGOUT_NAV_ITEM_KEY, 'block')
+        setDisplayProperty(ORDERS_NAV_ITEM_KEY, 'block')
         setDisplayProperty(USER_DETAILS_NAV_ITEM_KEY, 'block')
         const user = JSON.parse(getValueFromLocalStorage(LOGGED_IN_USER_KEY))
         document.getElementById("user-image").src = user.image
@@ -41,6 +43,7 @@ const onPageLoadNavSettings = () => {
         setDisplayProperty(LOGIN_NAV_ITEM_KEY, 'block')
         setDisplayProperty(PRODUCTS_NAV_ITEM_KEY, 'none')
         setDisplayProperty(LOGOUT_NAV_ITEM_KEY, 'none')
+        setDisplayProperty(ORDERS_NAV_ITEM_KEY, 'none')
         setDisplayProperty(USER_DETAILS_NAV_ITEM_KEY, 'none')
     }
 }
