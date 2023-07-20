@@ -119,7 +119,8 @@
                         Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
                     }
                 })
-                window.location = "/index.html"
+                alert("Cheers! Your order has been placed!")
+                window.location = "/orders.html"
             } catch (error) {
                 console.error(error);
             }
