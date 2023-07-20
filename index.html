@@ -69,19 +69,24 @@
     <script src="./utils.js" defer></script>
     <script>
         getProduct()
+        let gProduct = []
         async function getProduct() {
             try {
                 const response = await axios.get('http://localhost:5000/products');
                 const { data: products } = response;
+                gProduct = products
                 const productListEle = document.getElementById("product-list")
                 products.forEach(product => {
                     const div = document.createElement("div")
                     div.setAttribute("class", "col-sm-12 col-md-6 col-lg-3")
                     let deleteButton = ''
-
+                    let editButton = ''
                     if (getValueFromLocalStorage(USER_ROLE) === "admin") {
                         deleteButton = `
-                            <button onclick="deleteProduct(${product.id})" class="btn btn-danger"><i class="bi bi-x-circle"></i></a>
+                            <button onclick="deleteProduct(${product.id})" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i></button>
+                        `
+                        editButton = `
+                            <button onclick="editProduct(${product.id})" class="btn btn-outline-success"><i class="bi bi-pen"></i></button>
                         `
                     }
 
@@ -95,6 +100,7 @@
                       </div>
                       <div class="card-body">
                         <a href="checkout.html?id=${product.id}" class="btn btn-primary"><i class="bi bi-cart-plus"></i> Buy</a>
+                        ${editButton}
                         ${deleteButton}
                       </div>
                     </div>
@@ -119,6 +125,19 @@
                 document.getElementById("product-list").innerHTML = ''
                 getProduct()
                 alert('Successfully Deleted!')
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function editProduct(id) {
+            try {
+                if(!confirm('Are you sure want to edit?')) {
+                    return
+                }
+                const product = gProduct.find(p => p.id === id)
+                setValueInLocalStorage(EDIT_PRODUCT, JSON.stringify(product))
+                window.location = `products.html?id=${id}`
             } catch (error) {
                 console.error(error);
             }

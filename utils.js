@@ -6,6 +6,7 @@ const LOGOUT_NAV_ITEM_KEY = 'logout-nav-item'
 const ORDERS_NAV_ITEM_KEY = 'orders-nav-item'
 const USER_DETAILS_NAV_ITEM_KEY = 'user-details-nav-item'
 const USER_ROLE = 'role'
+const EDIT_PRODUCT = 'EDIT_PRODUCT'
 
 const setValueInLocalStorage = (key, value) => {
     localStorage.setItem(key, value)

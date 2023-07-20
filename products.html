@@ -97,18 +97,47 @@
     <script src="./utils.js" defer></script>
 
     <script>
-        let imageBase64Code = ''
+        let imageBase64Code = undefined
         async function addProduct(e) {
             e.preventDefault()
             try {
-                const formData = new FormData(e.target);
-                const formProps = Object.fromEntries(formData);
-                const response = await axios.post('http://localhost:5000/products', { ...formProps, image: imageBase64Code }, {
-                    headers: {
-                        Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
+                const formData = new FormData(e.target)
+                const formProps = Object.fromEntries(formData)
+                let request = {}
+
+                const editId = getQueryStringParam("id")
+                let successMsg = ''
+                if (editId) {
+                    const payload = { ...formProps }
+
+                    if (imageBase64Code) {
+                        payload.image = imageBase64Code
                     }
-                });
-                alert('Product has been added successfully!')
+
+                    request = {
+                        url: `http://localhost:5000/products/${editId}`,
+                        method: 'put',
+                        data: payload,
+                        headers: {
+                            Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
+                        }
+                    }
+                    successMsg = 'Product has been updated successfully!'
+                } else {
+                    request = {
+                        url: 'http://localhost:5000/products',
+                        method: 'post',
+                        data: { ...formProps, image: imageBase64Code },
+                        headers: {
+                            Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
+                        }
+                    }
+                    successMsg = 'Product has been added successfully!'
+                }
+
+                const response = await axios(request)
+                
+                alert(successMsg)
                 window.location = "/index.html"
             } catch (error) {
                 console.error(error);
@@ -128,6 +157,23 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        function loadEditDataInForm() {
+            if (!getQueryStringParam("id")) {
+                return
+            }
+
+            const product = JSON.parse(getValueFromLocalStorage(EDIT_PRODUCT))
+            document.getElementsByName("name")[0].value = product.name
+            document.getElementsByName("price")[0].value = product.price
+            document.getElementsByName("quantity")[0].value = product.quantity
+            document.getElementsByName("description")[0].value = product.description
+            document.getElementById("demoImage").src = product.image
+        }
+
+        setTimeout(() => {
+            loadEditDataInForm()
+        }, 500)
     </script>
 </body>
 
