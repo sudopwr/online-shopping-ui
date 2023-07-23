@@ -110,7 +110,7 @@
                     const tr = document.createElement("tr")
                     tr.innerHTML = `
                         <td>${order.id}</td>
-                        <td>${order.order_date}</td>
+                        <td>${new Date(order.order_date)}</td>
                         <td>${order.user_name}</td>
                         <td>${order.product_name}</td>
                         <td>${order.quantity}</td>
