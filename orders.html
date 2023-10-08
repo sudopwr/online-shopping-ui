@@ -95,10 +95,10 @@
         async function getOrders() {
             try {
                 document.getElementById("overlay").style.display = 'block'
-                let url = 'http://localhost:5000/orders/user'
-                if(getValueFromLocalStorage(USER_ROLE) === "admin") {
-                    url = 'http://localhost:5000/orders'
-                }
+                let url = 'http://localhost:5000/orders'
+                // if(getValueFromLocalStorage(USER_ROLE) === "admin") {
+                //     url = 'http://localhost:5000/orders'
+                // }
                 const response = await axios.get(url, {
                     headers: {
                         Authorization: `Bearer ${getValueFromLocalStorage(USER_TOKEN_KEY)}`
